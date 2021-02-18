@@ -18,3 +18,15 @@ sed -i '$a \
 .cbi-section-table-descr { \
     display: table-row !important;\
 }' package/lean/luci-theme-argon/htdocs/luci-static/argon/css/style.css
+
+echo '修改默认主题'
+sed -i 's/config internal themes/config internal themes\n    option Argon  \"\/luci-static\/argon\"/g' feeds/luci/modules/luci-base/root/etc/config/luci
+
+echo '去除默认bootstrap主题'
+sed -i '/set luci.main.mediaurlbase=\/luci-static\/bootstrap/d' feeds/luci/themes/luci-theme-bootstrap/root/etc/uci-defaults/30_luci-theme-bootstrap
+
+echo '默认关闭WiFi'
+sed -i 's/disabled=0/disabled=1/g' package/kernel/mac80211/files/lib/wifi/mac80211.sh
+
+echo '删除默认zerotier'
+rm -rf ./package/net/zerotier

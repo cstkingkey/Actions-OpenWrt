@@ -29,4 +29,4 @@ echo '默认关闭WiFi'
 sed -i 's/disabled=0/disabled=1/g' package/kernel/mac80211/files/lib/wifi/mac80211.sh
 
 echo '删除默认zerotier'
-rm -rf ./package/net/zerotier
+rm -rf ./feeds/packages/net/zerotier

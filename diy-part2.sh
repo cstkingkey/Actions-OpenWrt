@@ -29,6 +29,10 @@ sed -i 's/theme-bootstrap/theme-argon/g' feeds/luci/collections/luci/Makefile
 echo '关闭WiFi'
 sed -i 's/disabled=0/disabled=1/g' package/kernel/mac80211/files/lib/wifi/mac80211.sh
 
+echo '删除lean默认设置选项'
+# 开启wifi
+sed -i '/wireless/d' package/lean/default-settings/files/zzz-default-settings
+
 echo '使用外部zerotier'
 # when using feed, it;s not installing external one, so the building fails. Use clone directlly.
 rm -rf ./feeds/packages/net/zerotier

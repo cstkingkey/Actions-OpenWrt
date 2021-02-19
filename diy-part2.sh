@@ -26,8 +26,8 @@ echo '去除默认bootstrap主题'
 #sed -i '/set luci.main.mediaurlbase=\/luci-static\/bootstrap/d' feeds/luci/themes/luci-theme-bootstrap/root/etc/uci-defaults/30_luci-theme-bootstrap
 sed -i 's/theme-bootstrap/theme-argon/g' feeds/luci/collections/luci/Makefile
 
-#echo '关闭WiFi'
-#sed -i 's/disabled=0/disabled=1/g' package/kernel/mac80211/files/lib/wifi/mac80211.sh
+echo '关闭WiFi'
+sed -i 's/disabled=0/disabled=1/g' package/kernel/mac80211/files/lib/wifi/mac80211.sh
 
 echo '使用外部zerotier'
 # when using feed, it;s not installing external one, so the building fails. Use clone directlly.

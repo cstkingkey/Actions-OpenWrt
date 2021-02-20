@@ -36,4 +36,4 @@ sed -i '/wireless/d' package/lean/default-settings/files/zzz-default-settings
 echo '使用外部zerotier'
 # when using feed, it;s not installing external one, so the building fails. Use clone directlly.
 rm -rf ./feeds/packages/net/zerotier
-git clone https://github.com/mwarning/zerotier-openwrt.git ./package/zerotier
+git clone https://github.com/cstkingkey/zerotier-openwrt.git ./package/zerotier

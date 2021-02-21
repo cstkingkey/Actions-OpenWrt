@@ -18,3 +18,6 @@
 
 #echo 'add zerotier feed'
 #sed -i '$a src-git zerotier https://github.com/mwarning/zerotier-openwrt.git' feeds.conf.default
+
+echo 'change feeds'
+sed -i 's/coolsnowwolf\/packages/cstkingkey\/packages/g' feeds.conf.default

@@ -9,3 +9,5 @@ kmod-mt76x2-common_5.4.95+2020-12-18-4a90fdf6-3_mipsel_24kc.ipk
 kmod-mt76x2_5.4.95+2020-12-18-4a90fdf6-3_mipsel_24kc.ipk
 libnl-tiny_2019-10-29-0219008c-1_mipsel_24kc.ipk
 wpad-openssl_2020-06-08-5a8b3662-22_mipsel_24kc.ipk
+
+image size is increased by megabyte. 7 8 9

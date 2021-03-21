@@ -37,3 +37,6 @@ sed -i '/wireless/d' package/lean/default-settings/files/zzz-default-settings
 ## when using feed, it;s not installing external one, so the building fails. Use clone directlly.
 #rm -rf ./feeds/packages/net/zerotier
 #git clone https://github.com/cstkingkey/zerotier-openwrt.git ./package/zerotier
+
+echo 'replace dep'
+sed -i 's/ip-full/ip-tiny/g' package/lean/luci-app-arpbind/Makefile

@@ -58,15 +58,18 @@ jobs:
         sudo mkdir -p /workdir
         sudo chown $USER:$GROUPS /workdir
 
-    - name: ccache
-      uses: hendrikmuhs/ccache-action@v1
-
     - name: Clone source code
       working-directory: /workdir
       run: |
         df -hT $PWD
         git clone $REPO_URL -b $REPO_BRANCH openwrt
         ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
+
+    - name: Cache
+      uses: klever1988/cachewrtbuild@main
+      with:
+        ccache: 'true'
+        prefix: ${{ github.workspace }}/openwrt
 
     - name: Load custom feeds
       run: |
@@ -108,7 +111,6 @@ jobs:
     - name: Compile the firmware
       id: compile
       run: |
-        export PATH="/usr/lib/ccache:/usr/local/opt/ccache/libexec:$PATH"
         cd openwrt
         echo -e "$(nproc) thread compile"
         (make -j$(nproc) || make -j1 || make -j1 V=s) && echo "::set-output name=status::success"

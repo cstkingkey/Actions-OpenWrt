@@ -133,6 +133,8 @@ jobs:
       id: organize
       if: env.UPLOAD_FIRMWARE == 'true' && !cancelled()
       run: |
+        tar -cJf packages.tar.xz openwrt/bin/packages/
+        echo "PACKAGES=$PWD/packages.tar.xz" >> $GITHUB_ENV
         cd openwrt/bin/targets/*/*
         rm -rf packages
         echo "FIRMWARE=$PWD" >> $GITHUB_ENV
@@ -181,7 +183,9 @@ jobs:
       with:
         tag_name: ${{ steps.tag.outputs.release_tag }}
         body_path: release.txt
-        files: ${{ env.FIRMWARE }}/*
+        files: |
+          ${{ env.FIRMWARE }}/*
+          ${{ env.PACKAGES }}
 
     - name: Delete workflow runs
       uses: GitRML/delete-workflow-runs@main

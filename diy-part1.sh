@@ -21,3 +21,7 @@
 
 #echo 'change feeds'
 #sed -i 's/coolsnowwolf\/packages/cstkingkey\/packages/g' feeds.conf.default
+
+echo 'Add a feed source'
+echo 'src-git helloworld https://github.com/fw876/helloworld' >>feeds.conf.default
+#echo 'src-git passwall https://github.com/xiaorouji/openwrt-passwall' >>feeds.conf.default

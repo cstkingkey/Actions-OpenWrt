@@ -7,7 +7,7 @@
 # https://github.com/P3TERX/Actions-OpenWrt
 # Description: Build OpenWrt using GitHub Actions
 #
-
+# keep minimal runs count each day's runs rather than all runs
 name: Build OpenWrt
 
 on:

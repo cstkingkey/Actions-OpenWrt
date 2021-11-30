@@ -18,6 +18,10 @@ on:
         description: 'SSH connection to Actions'
         required: false
         default: 'false'
+      clean:
+        description: 'Clean Cache'
+        required: false
+        default: 'false'
   push:
     branches:
       - main
@@ -70,6 +74,7 @@ jobs:
       with:
         ccache: 'true'
         prefix: ${{ github.workspace }}/openwrt
+        clean: ${{ github.event.inputs.clean }}
 
     - name: Load custom feeds
       run: |

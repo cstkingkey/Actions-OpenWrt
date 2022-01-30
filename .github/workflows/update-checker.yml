@@ -18,7 +18,7 @@ env:
 on:
   workflow_dispatch:
   schedule:
-    - cron: "*/18 * * * *"
+    - cron: "18 3 * * *"
 
 jobs:
   check:
@@ -55,4 +55,4 @@ jobs:
       uses: GitRML/delete-workflow-runs@main
       with:
         retain_days: 1
-        keep_minimum_runs: 0
+        keep_minimum_runs: 3

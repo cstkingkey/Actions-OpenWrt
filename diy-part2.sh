@@ -17,7 +17,7 @@ echo 'fix vlan ports displaying'
 sed -i '$a \
 .cbi-section-table-descr { \
     display: table-row !important;\
-}' package/lean/luci-theme-argon/htdocs/luci-static/argon/css/style.css
+}' feeds/luci/themes/luci-theme-argon/htdocs/luci-static/argon/css/style.css
 
 echo '修改默认主题'
 sed -i 's/config internal themes/config internal themes\n    option Argon  \"\/luci-static\/argon\"/g' feeds/luci/modules/luci-base/root/etc/config/luci
@@ -39,10 +39,10 @@ sed -i '/wireless/d' package/lean/default-settings/files/zzz-default-settings
 #git clone https://github.com/cstkingkey/zerotier-openwrt.git ./package/zerotier
 
 echo 'replace dep'
-sed -i 's/ip-full/ip-tiny/g' package/lean/luci-app-arpbind/Makefile
+sed -i 's/ip-full/ip-tiny/g' feeds/luci/applications/luci-app-arpbind/Makefile
 
 echo 'fix uclient-fetch'
 sed -i 's/ALTERNATIVES:=200:\/usr\/bin\/wget:\/bin\/uclient-fetch/ALTERNATIVES:= \n  $(if $(CONFIG_PACKAGE_wget), ,ALTERNATIVES+= \\\n    200:\/usr\/bin\/wget:\/bin\/uclient-fetch \\\n    200:\/usr\/bin\/wget-ssl:\/bin\/uclient-fetch)/g' package/libs/uclient/Makefile
 
-sed -i 's/ --tries=1//g' package/lean/luci-app-adbyby-plus/root/usr/share/adbyby/admem.sh
-sed -i 's/ www/ http:\/\//g' package/lean/luci-app-adbyby-plus/root/usr/share/adbyby/admem.sh
+sed -i 's/ --tries=1//g' feeds/luci/applications/luci-app-adbyby-plus/root/usr/share/adbyby/admem.sh
+sed -i 's/ www/ http:\/\//g' feeds/luci/applications/luci-app-adbyby-plus/root/usr/share/adbyby/admem.sh

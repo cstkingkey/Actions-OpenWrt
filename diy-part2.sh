@@ -10,6 +10,9 @@
 # Description: OpenWrt DIY script part 2 (After Update feeds)
 #
 
+echo 'revert commit'
+git revert -n f061029ed17d33ba5dbd03981ddfe17c6c10e888
+
 echo 'Modify default IP'
 sed -i 's/192.168.1.1/192.168.100.100/g' package/base-files/files/bin/config_generate
 

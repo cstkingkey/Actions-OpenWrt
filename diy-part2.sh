@@ -11,7 +11,7 @@
 #
 
 echo 'revert commit'
-git revert -n f061029ed17d33ba5dbd03981ddfe17c6c10e888
+git revert -n fda63a952cd6764724df9a1f1a2b5db793028808 f061029ed17d33ba5dbd03981ddfe17c6c10e888
 
 echo 'Modify default IP'
 sed -i 's/192.168.1.1/192.168.100.100/g' package/base-files/files/bin/config_generate

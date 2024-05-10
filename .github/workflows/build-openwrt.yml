@@ -150,7 +150,7 @@ jobs:
       id: organize
       if: steps.compile.outputs.status == 'success' && env.UPLOAD_FIRMWARE == 'true' && !cancelled()
       run: |
-        package_name = OpenWrt_packages${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}.tar.xz
+        package_name=OpenWrt_packages${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}.tar.xz
         tar -cJf ${package_name} openwrt/bin/packages/
         echo "PACKAGES=$PWD/${package_name}" >> $GITHUB_ENV
         cd openwrt/bin/targets/*/*

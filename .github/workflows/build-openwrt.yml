@@ -80,6 +80,7 @@ jobs:
         ccache: 'true'
         prefix: ${{ github.workspace }}/openwrt
         clean: ${{ github.event.inputs.clean }}
+        mixkey: ${{ matrix.conf }}
 
     - name: Load custom feeds
       run: |

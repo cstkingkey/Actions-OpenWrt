@@ -81,14 +81,14 @@ jobs:
     - name: Get Commit Hash
       id: getHash
       run: |
-        cd openwrt
-        hash_repo=$(git rev-parse HEAD)
         hash_action=`md5sum .github/workflows/build-openwrt.yml | awk '{print $1}'`
         conf=${{ matrix.conf }}
         CONFIG_FILE=open_${conf}.config
-        hash_action=`md5sum ${CONFIG_FILE} | awk '{print $1}'`
+        hash_conf=`md5sum ${CONFIG_FILE} | awk '{print $1}'`
+        cd openwrt
+        hash_repo=$(git rev-parse HEAD)
         cd ..
-        echo "commitHash=$(hash_repo)_${hash_action}_${hash_action}" >> $GITHUB_OUTPUT
+        echo "commitHash=$(hash_repo)_${hash_action}_${hash_conf}" >> $GITHUB_OUTPUT
 
     - name: Compare Commit Hash
       id: cacheHash
@@ -117,6 +117,7 @@ jobs:
       run: df -hT
 
     - name: Load custom feeds
+      if: steps.triggerBuild.outputs.status == 'success' && !cancelled()
       run: |
         [ -e $FEEDS_CONF ] && mv $FEEDS_CONF openwrt/feeds.conf.default
         chmod +x $DIY_P1_SH
@@ -124,12 +125,15 @@ jobs:
         $GITHUB_WORKSPACE/$DIY_P1_SH
 
     - name: Update feeds
+      if: steps.triggerBuild.outputs.status == 'success' && !cancelled()
       run: cd openwrt && ./scripts/feeds update -a
 
     - name: Install feeds
+      if: steps.triggerBuild.outputs.status == 'success' && !cancelled()
       run: cd openwrt && ./scripts/feeds install -a
 
     - name: Load custom configuration
+      if: steps.triggerBuild.outputs.status == 'success' && !cancelled()
       run: |
         [ -e files ] && mv files openwrt/files
         conf=${{ matrix.conf }}
@@ -148,6 +152,7 @@ jobs:
 
     - name: Download package
       id: package
+      if: steps.triggerBuild.outputs.status == 'success' && !cancelled()
       run: |
         cd openwrt
         make defconfig
@@ -157,6 +162,7 @@ jobs:
 
     - name: Compile the firmware
       id: compile
+      if: steps.triggerBuild.outputs.status == 'success' && !cancelled()
       run: |
         cd openwrt
         echo -e "$((`nproc`+1)) thread compile"

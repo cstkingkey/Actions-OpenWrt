@@ -22,6 +22,10 @@ on:
         description: 'Clean Cache'
         required: false
         default: 'false'
+      new:
+        description: 'build it regardless of cache'
+        required: false
+        default: 'false'
   push:
     branches:
       - main
@@ -74,7 +78,33 @@ jobs:
         git clone $REPO_URL -b $REPO_BRANCH openwrt
         ln -sf /mnt/workdir/openwrt $GITHUB_WORKSPACE/openwrt
 
+    - name: Get Commit Hash
+      id: getHash
+      run: |
+        cd openwrt
+        hash_repo=$(git rev-parse HEAD)
+        hash_action=`md5sum .github/workflows/build-openwrt.yml | awk '{print $1}'`
+        conf=${{ matrix.conf }}
+        CONFIG_FILE=open_${conf}.config
+        hash_action=`md5sum ${CONFIG_FILE} | awk '{print $1}'`
+        cd ..
+        echo "commitHash=$(hash_repo)_${hash_action}_${hash_action}" >> $GITHUB_OUTPUT
+
+    - name: Compare Commit Hash
+      id: cacheHash
+      uses: actions/cache@v2
+      with:
+        path: .commitHash
+        key: ${{ matrix.conf }}-${{ steps.getHash.outputs.commitHash }}
+
+    - name: Trigger build
+      id: triggerBuild
+      if: steps.cacheHash.outputs.cache-hit != 'true' || github.event.inputs.new == 'true'
+      run: |
+        echo "status=success" >> $GITHUB_OUTPUT
+
     - name: Cache
+      if: steps.triggerBuild.outputs.status == 'success' && !cancelled()
       uses: klever1988/cachewrtbuild@main
       with:
         ccache: 'true'
@@ -205,6 +235,11 @@ jobs:
         files: |
           ${{ env.FIRMWARE }}/*
           ${{ env.PACKAGES }}
+
+    - name: Save New Commit Hash
+      if: steps.cacheHash.outputs.cache-hit != 'true'
+      run: |
+        echo ${{ steps.getHash.outputs.commitHash }} | tee .commitHash
 
     - name: Delete workflow runs
       uses: Mattraks/delete-workflow-runs@main

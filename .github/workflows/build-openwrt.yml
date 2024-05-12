@@ -195,7 +195,7 @@ jobs:
         cd openwrt/bin/targets/*/*
         rm -rf packages
         buildinfo_name=openwrt_buildinfo${{ env.DEVICE_NAME }}.tar.gz
-        tar -cJf ${buildinfo_name} *  --exclude *.gz --exclude *.xz --exclude *.bin ---exclude *.crx -remove-files
+        tar -cJf ${buildinfo_name} *  --exclude *.gz --exclude *.xz --exclude *.bin --exclude *.crx --remove-files
         echo "FIRMWARE=$PWD" >> $GITHUB_ENV
         echo "status=success" >> $GITHUB_OUTPUT
 

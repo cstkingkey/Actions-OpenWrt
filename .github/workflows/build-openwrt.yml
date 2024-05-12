@@ -85,7 +85,9 @@ jobs:
         cd openwrt
         hash_repo=$(git rev-parse HEAD)
         cd ..
-        echo "commitHash=${hash_repo}_${hash_action}_${hash_conf}" >> $GITHUB_OUTPUT
+        hash=${hash_repo}_${hash_action}_${hash_conf}
+        commitHash=`echo $hash | md5sum | awk '{print $1}'`
+        echo "commitHash=${commitHash}" >> $GITHUB_OUTPUT
 
     - name: Compare Commit Hash
       id: cacheHash
@@ -192,6 +194,8 @@ jobs:
         echo "PACKAGES=$PWD/${package_name}" >> $GITHUB_ENV
         cd openwrt/bin/targets/*/*
         rm -rf packages
+        buildinfo_name=openwrt_buildinfo${{ env.DEVICE_NAME }}.tar.gz
+        tar -cJf ${buildinfo_name} *  --exclude *.gz --exclude *.xz --exclude *.bin ---exclude *.crx -remove-files
         echo "FIRMWARE=$PWD" >> $GITHUB_ENV
         echo "status=success" >> $GITHUB_OUTPUT
 
@@ -224,7 +228,7 @@ jobs:
       id: tag
       if: steps.organize.outputs.status == 'success' && env.UPLOAD_RELEASE == 'true' && !cancelled()
       run: |
-        echo "release_tag=$(date +"%Y.%m.%d-%H%M")${{ env.DEVICE_NAME }}" >> $GITHUB_OUTPUT
+        echo "release_tag=$(date +"%Y.%m.%d")" >> $GITHUB_OUTPUT
         touch release.txt
         [ $UPLOAD_COWTRANSFER = true ] && echo "🔗 [Cowtransfer](${{ steps.cowtransfer.outputs.url }})" >> release.txt
         [ $UPLOAD_WETRANSFER = true ] && echo "🔗 [WeTransfer](${{ steps.wetransfer.outputs.url }})" >> release.txt

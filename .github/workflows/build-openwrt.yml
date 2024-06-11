@@ -54,7 +54,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        conf: [newifi3, r66s]
+        conf: [newifi3, r66s, r66s_lto]
 
     steps:
     - name: Checkout

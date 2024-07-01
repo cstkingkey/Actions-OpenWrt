@@ -161,10 +161,11 @@ jobs:
         make download -j8
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
-
+        echo "status=success" >> $GITHUB_OUTPUT
+    
     - name: Compile the firmware
       id: compile
-      if: steps.triggerBuild.outputs.status == 'success' && !cancelled()
+      if: steps.package.outputs.status == 'success' && !cancelled()
       run: |
         cd openwrt
         echo -e "$((`nproc`+1)) thread compile"

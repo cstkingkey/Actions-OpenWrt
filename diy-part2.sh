@@ -41,8 +41,8 @@ sed -i '/wireless/d' package/lean/default-settings/files/zzz-default-settings
 #rm -rf ./feeds/packages/net/zerotier
 #git clone https://github.com/cstkingkey/zerotier-openwrt.git ./package/zerotier
 
-echo 'replace dep'
-sed -i 's/ip-full/ip-tiny/g' feeds/luci/applications/luci-app-arpbind/Makefile
+#echo 'replace dep'
+#sed -i 's/ip-full/ip-tiny/g' feeds/luci/applications/luci-app-arpbind/Makefile
 
 echo 'fix uclient-fetch'
 sed -i 's/ALTERNATIVES:=200:\/usr\/bin\/wget:\/bin\/uclient-fetch/ALTERNATIVES:= \n  $(if $(CONFIG_PACKAGE_wget), ,ALTERNATIVES+= \\\n    200:\/usr\/bin\/wget:\/bin\/uclient-fetch \\\n    200:\/usr\/bin\/wget-ssl:\/bin\/uclient-fetch)/g' package/libs/uclient/Makefile

@@ -51,4 +51,4 @@ sed -i 's/ --tries=1//g' feeds/luci/applications/luci-app-adbyby-plus/root/usr/s
 sed -i 's/ www/ http:\/\//g' feeds/luci/applications/luci-app-adbyby-plus/root/usr/share/adbyby/admem.sh
 
 sed -i 's/"auto",/"auto",ip6addr,/g' package/network/ipv6/odhcp6c/files/dhcpv6.sh
-cp -r $GITHUB_WORKSPACE/packages/* package/
+cp -r $GITHUB_WORKSPACE/package/* package/

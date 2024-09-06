@@ -49,3 +49,6 @@ sed -i 's/ALTERNATIVES:=200:\/usr\/bin\/wget:\/bin\/uclient-fetch/ALTERNATIVES:=
 
 sed -i 's/ --tries=1//g' feeds/luci/applications/luci-app-adbyby-plus/root/usr/share/adbyby/admem.sh
 sed -i 's/ www/ http:\/\//g' feeds/luci/applications/luci-app-adbyby-plus/root/usr/share/adbyby/admem.sh
+
+sed -i 's/"auto",/"auto",ip6addr,/g' package/network/ipv6/odhcp6c/files/dhcpv6.sh
+cp -r ../packages/* package/

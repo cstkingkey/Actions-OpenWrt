@@ -56,7 +56,7 @@ jobs:
       fail-fast: false
       matrix:
         conf: [newifi3, r66s]
-        repo: [lean, immortal]
+        repo: [lean]
 
     steps:
     - name: Checkout

@@ -34,7 +34,8 @@ on:
       - 'open_r66s.config'
 
 env:
-  REPO_URL: https://github.com/coolsnowwolf/lede.git
+  REPO_URL_lean: https://github.com/coolsnowwolf/lede.git
+  REPO_URL_immortal: https://github.com/immortalwrt/immortalwrt.git
   REPO_BRANCH: master
   FEEDS_CONF: feeds.conf.default
   DIY_P1_SH: diy-part1.sh
@@ -55,6 +56,7 @@ jobs:
       fail-fast: false
       matrix:
         conf: [newifi3, r66s]
+        repo: [lean, immortal]
 
     steps:
     - name: Checkout
@@ -72,7 +74,9 @@ jobs:
       working-directory: /mnt/workdir
       run: |
         df -hT $PWD
-        git clone $REPO_URL -b $REPO_BRANCH openwrt
+        repo=${{ matrix.repo }}
+        repo_url = $REPO_URL_$repo
+        git clone $repo_url -b $REPO_BRANCH openwrt
         ln -sf /mnt/workdir/openwrt $GITHUB_WORKSPACE/openwrt
 
     - name: Get Commit Hash
@@ -94,7 +98,7 @@ jobs:
       uses: actions/cache@main
       with:
         path: .commitHash
-        key: ${{ matrix.conf }}-${{ steps.getHash.outputs.commitHash }}
+        key: ${{ matrix.conf }}-${{ matrix.repo }}-${{ steps.getHash.outputs.commitHash }}
 
     - name: Trigger build
       id: triggerBuild
@@ -112,7 +116,7 @@ jobs:
         ccache: 'true'
         prefix: ${{ github.workspace }}/openwrt
         clean: ${{ github.event.inputs.clean }}
-        mixkey: ${{ matrix.conf }}
+        mixkey: ${{ matrix.conf }}-${{ matrix.repo }}
 
     - name: Check space usage before
       if: (!cancelled())

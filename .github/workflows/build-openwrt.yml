@@ -56,7 +56,7 @@ jobs:
       fail-fast: false
       matrix:
         conf: [newifi3, r66s]
-        repo: [lean]
+        repo: [lean, immortal]
 
     steps:
     - name: Checkout
@@ -75,6 +75,7 @@ jobs:
       run: |
         df -hT $PWD
         repo=${{ matrix.repo }}
+        echo "REPO=$repo" >> $GITHUB_ENV
         repo_url=REPO_URL_$repo
         repo_url=${!repo_url}
         git clone $repo_url -b $REPO_BRANCH openwrt

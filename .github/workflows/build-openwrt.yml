@@ -55,7 +55,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        conf: [newifi3, r66s]
+        conf: [newifi3, r66s, 64]
         repo: [lean, immortal]
 
     steps:

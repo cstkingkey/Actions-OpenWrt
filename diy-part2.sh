@@ -44,11 +44,10 @@ sed -i '/wireless/d' package/lean/default-settings/files/zzz-default-settings
 #echo 'replace dep'
 #sed -i 's/ip-full/ip-tiny/g' feeds/luci/applications/luci-app-arpbind/Makefile
 
-echo 'fix uclient-fetch'
-sed -i 's/ALTERNATIVES:=200:\/usr\/bin\/wget:\/bin\/uclient-fetch/ALTERNATIVES:= \n  $(if $(CONFIG_PACKAGE_wget), ,ALTERNATIVES+= \\\n    200:\/usr\/bin\/wget:\/bin\/uclient-fetch \\\n    200:\/usr\/bin\/wget-ssl:\/bin\/uclient-fetch)/g' package/libs/uclient/Makefile
-
-sed -i 's/ --tries=1//g' feeds/luci/applications/luci-app-adbyby-plus/root/usr/share/adbyby/admem.sh
-sed -i 's/ www/ http:\/\//g' feeds/luci/applications/luci-app-adbyby-plus/root/usr/share/adbyby/admem.sh
+#echo 'fix uclient-fetch'
+#sed -i 's/ALTERNATIVES:=200:\/usr\/bin\/wget:\/bin\/uclient-fetch/ALTERNATIVES:= \n  $(if $(CONFIG_PACKAGE_wget), ,ALTERNATIVES+= \\\n    200:\/usr\/bin\/wget:\/bin\/uclient-fetch \\\n    200:\/usr\/bin\/wget-ssl:\/bin\/uclient-fetch)/g' package/libs/uclient/Makefile
+#sed -i 's/ --tries=1//g' feeds/luci/applications/luci-app-adbyby-plus/root/usr/share/adbyby/admem.sh
+#sed -i 's/ www/ http:\/\//g' feeds/luci/applications/luci-app-adbyby-plus/root/usr/share/adbyby/admem.sh
 
 sed -i 's/"auto",/"auto",ip6addr,/g' package/network/ipv6/odhcp6c/files/dhcpv6.sh
 cp -r $GITHUB_WORKSPACE/package/* package/

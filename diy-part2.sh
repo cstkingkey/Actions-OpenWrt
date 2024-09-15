@@ -49,5 +49,9 @@ sed -i '/wireless/d' package/lean/default-settings/files/zzz-default-settings
 #sed -i 's/ --tries=1//g' feeds/luci/applications/luci-app-adbyby-plus/root/usr/share/adbyby/admem.sh
 #sed -i 's/ www/ http:\/\//g' feeds/luci/applications/luci-app-adbyby-plus/root/usr/share/adbyby/admem.sh
 
+#echo 'workaround uclient-fetch limitation'
+sed -i 's/uclient-fetch/uclient-fetch -4/g' feeds/luci/applications/luci-app-adbyby-plus/root/usr/share/adbyby/*.sh feeds/luci/applications/luci-app-adbyby-plus/root/usr/share/adbyby/rule-update
+
+
 sed -i 's/"auto",/"auto",ip6addr,/g' package/network/ipv6/odhcp6c/files/dhcpv6.sh
 cp -r $GITHUB_WORKSPACE/package/* package/

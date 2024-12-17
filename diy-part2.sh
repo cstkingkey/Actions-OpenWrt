@@ -54,4 +54,5 @@ sed -i 's/uclient-fetch/uclient-fetch -4/g' feeds/luci/applications/luci-app-adb
 
 
 sed -i 's/"auto",/"auto",ip6addr,/g' package/network/ipv6/odhcp6c/files/dhcpv6.sh
-cp -r $GITHUB_WORKSPACE/package/* package/
+mkdir package/more/
+cp -r $GITHUB_WORKSPACE/package/* package/more/

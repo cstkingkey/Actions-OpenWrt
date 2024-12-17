@@ -148,6 +148,10 @@ jobs:
         chmod +x $DIY_P2_SH
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P2_SH
+        repo=${{ matrix.repo }}
+        if [[ ${repo} != "lean" ]]; then
+           rm -rf package/more
+        fi
 
     - name: SSH connection to Actions
       uses: P3TERX/ssh2actions@v1.0.0

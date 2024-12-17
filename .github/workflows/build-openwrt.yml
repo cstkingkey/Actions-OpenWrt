@@ -149,8 +149,9 @@ jobs:
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P2_SH
         repo=${{ matrix.repo }}
-        if [[ ${repo} != "lean" ]]; then
-           rm -rf package/more
+        if [[ ${repo} == "lean" ]]; then
+           cp -r $GITHUB_WORKSPACE/package/* package
+           echo "morepatch=prefix-hint"
         fi
 
     - name: SSH connection to Actions

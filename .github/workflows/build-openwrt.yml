@@ -112,7 +112,7 @@ jobs:
 
     - name: Cache
       if: steps.triggerBuild.outputs.status == 'success' && !cancelled()
-      uses: cstkingkey/cachewrtbuild@main
+      uses: stupidloud/cachewrtbuild@main
       with:
         ccache: 'true'
         prefix: ${{ github.workspace }}/openwrt

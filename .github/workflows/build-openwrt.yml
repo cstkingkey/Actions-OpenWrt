@@ -114,7 +114,7 @@ jobs:
       if: steps.triggerBuild.outputs.status == 'success' && !cancelled()
       uses: stupidloud/cachewrtbuild@main
       with:
-        ccache: 'true'
+        ccache: true
         prefix: ${{ github.workspace }}/openwrt
         clean: ${{ github.event.inputs.clean }}
         mixkey: ${{ matrix.conf }}-${{ matrix.repo }}
